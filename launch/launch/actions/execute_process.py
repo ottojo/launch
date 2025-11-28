@@ -33,7 +33,7 @@ from ..substitution import Substitution
 from ..substitutions import TextSubstitution
 
 
-@expose_action('executable')
+@expose_action('executable', docs="This is the \"executable\" action. It requires N arguments btw.")
 class ExecuteProcess(ExecuteLocal):
     """
     Action that begins executing a process and sets up event handlers for it.

@@ -55,7 +55,7 @@ def instantiate_substitution(
     return subst_type(**kwargs)
 
 
-def __expose_impl(name: Text, parse_methods_map: dict, exposed_type: Text):
+def __expose_impl(name: Text, parse_methods_map: dict, exposed_type: Text, docs: Text=""):
     """
     Return a decorator for exposing a parsing method in a dictionary.
 
@@ -100,6 +100,7 @@ def __expose_impl(name: Text, parse_methods_map: dict, exposed_type: Text):
                     name
                 )
             )
+        exposed.is_frontend_exposed_type = True
         if exposed_type == 'action':
             # For actions, validate that the user didn't provide unknown attributes or children
             @functools.wraps(found_parse_method)
@@ -123,10 +124,10 @@ def expose_substitution(name: Text):
     return __expose_impl(name, substitution_parse_methods, 'substitution')
 
 
-def expose_action(name: Text):
+def expose_action(name: Text, docs: Text = ""):
     """
     Return a decorator for exposing an action.
 
     Read __expose_impl documentation.
     """
-    return __expose_impl(name, action_parse_methods, 'action')
+    return __expose_impl(name, action_parse_methods, 'action', docs=docs)

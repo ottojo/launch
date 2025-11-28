@@ -28,6 +28,7 @@
 #
 import os
 import sys
+from pathlib import Path
 # The python interpreter that executes this conf.py file will not have this
 # package's modules in the system path which will lead to import failures when
 # running sphinx-autodoc. As a workaround, the sphinx_builder.py script in
@@ -36,7 +37,7 @@ import sys
 # Hence we add the parent folder to the system path so that the modules from
 # this package can be imported.
 sys.path.insert(0, os.path.abspath('.'))
-
+sys.path.append(str(Path('_ext').resolve()))
 
 # -- Project information -----------------------------------------------------
 # type: ignore
@@ -70,6 +71,7 @@ extensions = [
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
+    'launch_frontend_item',
 ]
 
 # autodoc settings
@@ -205,3 +207,7 @@ intersphinx_mapping = {'python': ('https://docs.python.org/3', None)}
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
+
+rosdoc2_settings={
+    "allow_other_extensions": True,
+}
